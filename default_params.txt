@@ -1,0 +1,3 @@
+# Default parameters file for AQ_RNAseq.sh
+genome_index_dir="/data/shares/ref/STAR"
+
