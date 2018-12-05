@@ -95,9 +95,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 ## Debugging
-printf "Params:\n 
---genome_index=${genome_index}\n
---samples_file=${samples_file}\n"
+#printf "Params:\n 
+#--genome_index=${genome_index}\n
+#--samples_file=${samples_file}\n"
 
 ##################################################################################################################
 # RUN PARAMETERS
@@ -118,27 +118,29 @@ if [ ! -f "${samples_file}" ]; then
     printf "[ERROR] Samples File not found. Looked here: ${samples_file} \n \n"
 fi
 
-while read col1 col2 col3 ; do 
+# Read the columns of samples_file as separate arrays
+while read col1 col2 ; do 
     samples+=($col1)
-    is_paired+=($col2) 
-    read_len+=($col3)
-    #ar4+=($col4) # for future use, if want more info
+    read_len+=($col2)
 done < <(sed 's/;/\t/g' $samples_file)
+
+# Check that we have a read len for every sample
+if [ ! "${#samples[@]}" = "${#read_len[@]}" ]; then
+    echo "[ERROR] Check your samples file. number of sample != number of read length.\n"
+    exit 1
+fi
 
 ## Debugging
 printf 'Found %s samples: \n' "${#samples[@]}"
 printf '%s\n' "${samples[@]}"
 echo ""
-
+printf 'Read lengths are:\n'
+printf '%s\n' "${read_len[@]}"
 ##################################################################################################################
 # ALIGNMENT
 ##################################################################################################################
 
 # Dynamic read_len support
-if [ "${#read_len[@]}" -gt 1 ]; then
-    echo "Dynamic Read Length not yet supported. Feature comming soon."
-    exit 1
-fi
 
 # Collect and validate required params
 star_index_path="${genome_index_dir}/${genome_index}_${read_len}"

@@ -1,4 +1,4 @@
-sample1
-sample2
-sample3
-sample4
+sample1 50
+sample2 50
+sample3 50
+sample4 50
