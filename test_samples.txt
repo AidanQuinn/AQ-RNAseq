@@ -1,4 +1,4 @@
-sample1 50
-sample2 50
-sample3 50
-sample4 50
+sample1 50  /path/to/sample1_1.fq.gz    /path/to/sample1_2.fq.gz
+sample2 50  /path/to/sample2_1.fq.gz    /path/to/sample2_2.fq.gz
+sample3 50  /path/to/sample2_1.fq.gz    /path/to/sample3_2.fq.gz
+sample4 50  /path/to/sample4_1.fq.gz    /path/to/sample4_2.fq.gz
